@@ -1,0 +1,54 @@
+@CHARSET "UTF-8";
+
+.sidebar-nav-fixed {
+	width:20%;
+}
+
+.green {
+	color: green;
+}
+
+.selected {
+  border : solid;
+}
+
+.notSelected {
+  background-color :red;
+}
+
+
+.specialjum {
+	padding: 0;
+}
+
+.tweetText {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	color: #444;
+	font-size: 12px;
+}
+
+.text {
+	font-family: "Lucida Grande", Tahoma;
+	font-size: 12px;
+	font-weight: lighter;
+	font-variant: normal;
+	text-transform: initial;
+	color: #666666;
+	letter-spacing: 0.3em;
+}
+
+.alignCenter {
+	text-align: center !important;
+}
+
+.radioAlignV {
+	margin-top: 2px;
+}
+
+.glyphicon {
+	font-size: 8px;
+}
+
+.expandable {
+	background-color: white;
+}

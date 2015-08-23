@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/3.3.4/bootstrap.min.css">
+<script src="js/1.11.3/jquery.min.js"></script>
+<script src="js/1.3.14/angular.min.js"></script>
+<script src="js/0.13.0/ui-bootstrap-tpls-0.13.0.min.js"></script>
+<script src="js/3.3.4/bootstrap.min.js"></script>
+<script src="scripts.js"></script>
+</head>
+<body ng-app="myapp">
+	<div class="container">
+		<div class="row">
+			<div class="panel text">
+				<h1>Analyze Tweets App.</h1>
+			</div>
+		</div>
+		<div class="row" ng-controller="TweetController">
+			<div class="col-md-2 text">
+				Select the hashtag to search for:
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios1" ng-model="hashtag" value="capitalone"
+						style="margin-top: 2px;" checked> #capitalone
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios2" ng-model="hashtag" value="td"
+						style="margin-top: 2px;"> #td
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios3" ng-model="hashtag" value="mbna"
+						style="margin-top: 2px;"> #mbna
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios4" ng-model="hashtag" value="bmo"
+						style="margin-top: 2px;"> #bmo
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios5" ng-model="hashtag" value="chase"
+						style="margin-top: 2px;"> #chase
+					</label>
+				</div>
+				<button type="button" ng-disabled="!hashtag" class="btn btn-success" ng-click="getTweets(hashtag)">Search</button>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<table>
+							<tr ng-repeat="tweet in tweets" >
+								<td>
+									<div ng-class="tweet.id === selectedTweetId ? 'panel panel-info' : 'panel panel-default'" ng-click="getTweetDetails(tweet, $index)">
+										<div class="panel-heading clearfix">
+											<div class="row text alignCenter">
+												<div class="col-md-3">
+													<div class="row">{{tweet.doc.user.name}}</div>
+													<div class="row">{{tweet.doc.user.location}}</div>
+												</div>
+												<div class="col-md-6"></div>
+												<div class="col-md-3">{{tweet.doc.createdAt | date:'medium'}}</div>
+											</div>
+										</div>
+										<div class="panel-body">
+											<div class="row">
+												<div class="col-md-12 tweetText">{{ tweet.doc.text}}</div>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button type="button" class="btn btn-success" ng-show="hasMore()"
+							ng-click="loadmore()">Load more...</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 text">
+				<div class="sidebar-nav-fixed pull-right affix" ng-show="tweetDetailsSelected">
+					<div ng-model="tweetDetails">
+						<div class="row">
+							<div class="col-md-12">
+							<table class = "col-md-12">
+								<tr >
+									<td><img src={{tweetDetails.user.profileImageUrl}} alt="Mountain View" style="width:100px;height:100px;"></td>
+								</tr>
+								<tr>
+									<td>Friends count:</td>
+									<td>{{tweetDetails.user.friendsCount}}</td>
+								</tr>
+								<tr>
+									<td>Retweet count:</td>
+									<td>{{tweetDetails.retweetCount}}</td>
+								</tr>
+								<tr>
+									<td>Screen name:</td>
+									<td>{{tweetDetails.user.screenName}}</td>
+								</tr>
+								<tr>
+									<td>Followers count:</td>
+									<td>{{tweetDetails.user.followersCount}}</td>
+								</tr>
+								<tr>
+									<td>Possibly sensitive:</td>
+									<td>{{tweetDetails.possiblySensitive}}</td>
+								</tr>
+								<tr>
+									<td>Language:</td>
+									<td>{{tweetDetails.lang}}</td>
+								</tr>
+								<tr>
+									<td>Joined on:</td>
+									<td>{{tweetDetails.user.createdAt | date:'mediumDate'}}</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<form role="form">
+											<div class="form-group">
+												<label for="email">Admin Email address:</label> <input type="email"
+													class="form-control" id="email" ng-model="email" ng-click="closeAlert()">
+											</div>
+											<div class="form-group">
+												<label for="comments">Comment: </label>
+												<textarea class="form-control" rows=5 id="comments"
+													ng-model="description"></textarea>
+											</div>
+											<button type="submit" class="btn btn-default"
+												ng-click="submitComment()">Make Note!!!</button>
+											<button type="submit" class="btn btn-default"
+												ng-click="deleteTweet()">Delete Tweet</button>
+											<div id="result" ng-class="submitResponseClass"
+												ng-bind="submitResponse"></div>
+										</form>
+									</td>
+								</tr>
+							</table> 
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
